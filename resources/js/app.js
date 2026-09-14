@@ -2,6 +2,7 @@ import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import Layout from './pages/Layout.vue';
 
 createInertiaApp(
   // Só é necessário caso nãso utilizemos a função inertia() em vite.config.js
@@ -16,6 +17,14 @@ createInertiaApp(
   //           .mount(el);
   //   },
   // }
+  {
+    layout: () => Layout,
+    // setup({ el, App, props, plugin }) {
+    //   createApp({ render: () => h(App, props) })
+    //       .use(plugin)
+    //       .mount(el);
+    // },
+  }
 );
 
 /*

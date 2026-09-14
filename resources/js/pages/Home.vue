@@ -1,7 +1,7 @@
 
 
 <script setup>
-import { Head } from '@inertiajs/vue3'
+import AppHeader from '../components/AppHeader.vue';
 
 defineProps({
     title: {
@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Cabeçalho 🤓" />
+   <AppHeader title="Título da página"/>
     <main class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
         <div class="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
             <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">
