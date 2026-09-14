@@ -3,6 +3,8 @@ import '../css/app.css';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import Layout from './pages/Layout.vue';
+import PrimeVue from 'primevue/config';
+import Aura from '@primevue/themes/aura';
 
 createInertiaApp(
   // Só é necessário caso nãso utilizemos a função inertia() em vite.config.js
@@ -19,11 +21,16 @@ createInertiaApp(
   // }
   {
     layout: () => Layout,
-    // setup({ el, App, props, plugin }) {
-    //   createApp({ render: () => h(App, props) })
-    //       .use(plugin)
-    //       .mount(el);
-    // },
+    setup({ el, App, props, plugin }) {
+      createApp({ render: () => h(App, props) })
+          .use(plugin)
+          .use(PrimeVue, {
+            theme: {
+              preset: Aura // Aplica o tema
+            }
+        })
+          .mount(el);
+    },
   }
 );
 

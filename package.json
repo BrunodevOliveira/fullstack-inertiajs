@@ -19,7 +19,10 @@
     "dependencies": {
         "@inertiajs/vite": "^3.7.1",
         "@inertiajs/vue3": "^3.7.1",
+        "@primeuix/themes": "^3.0.0",
+        "@primevue/themes": "^4.5.4",
         "@vitejs/plugin-vue": "^6.0.8",
+        "primevue": "^4.5.5",
         "vue": "^3.5.42"
     }
 }

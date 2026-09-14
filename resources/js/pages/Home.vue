@@ -2,6 +2,7 @@
 
 <script setup>
 import AppHeader from '../components/AppHeader.vue';
+import Button from 'primevue/button';
 
 defineProps({
     title: {
@@ -18,6 +19,7 @@ defineProps({
             <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">
                 {{ title }}
             </h1>
+             <Button>Verify</Button>
             <p class="text-gray-600 dark:text-gray-300">
                 Inertia.js + Vue 3 configurado com sucesso!
             </p>
