@@ -56,9 +56,10 @@ flowchart TD
 ### 👤 ÉPICO 2: Autenticação, Perfis e Gestão de Usuários
 > **Objetivo:** Implementar o domínio de usuários conforme o PINC, com suporte a múltiplos perfis (Root, Admin, Docente, Discente, Técnico), login local e seletor rápido para mentoria.
 
-- [ ] **E2-T1: Modelagem da Tabela de Perfis e Enum Tipado**
+- [x] **E2-T1: Modelagem da Tabela de Perfis e Enum Tipado**
   - **Conceitos:** PHP Enums tipados, migrations com foreign keys, seeders idempotentes.
   - **Ação:** Criar Enum `PerfilEnum` (Root=1, Administrador=2, Docente=3, Discente=4, Técnico=5), migration da tabela `perfis` e seeder.
+  - **commit** Criação de Enum, Migration, Model e Seeder para Perfil
 - [ ] **E2-T2: Modelagem da Tabela `usuarios` e Tabela Pivô `perfil_usuario`**
   - **Conceitos:** Custom User Model no Laravel (`auth.php`), mutators/casts de CPF, soft deletes, relacionamento `belongsToMany`.
   - **Ação:** Criar migration e Model `Usuario` (campos: cpf, nome, nome_social, email, telefone, lattes, siape, sira, situacao) conectado a `perfis`.
