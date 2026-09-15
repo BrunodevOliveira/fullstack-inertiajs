@@ -39,12 +39,13 @@ flowchart TD
 - [x] **E1-T2: Configuração do Banco de Dados MySQL / MariaDB**
   - **Conceitos:** Variáveis de ambiente (`.env`), driver PDO, migrations iniciais.
   - **Ação:** Ajustar as credenciais do MySQL/MariaDB no `.env`, criar o banco de dados e rodar `php artisan migrate`.
-- [ ] **E1-T3: Instalação e Configuração dos PrimeIcons**
+- [x] **E1-T3: Instalação e Configuração dos PrimeIcons**
   - **Conceitos:** Pacotes de ícones, importação global no CSS/JS.
   - **Ação:** Instalar `primeicons` e importar em `resources/css/app.css` ou `app.js` para uso nos botões e menus.
-- [ ] **E1-T4: Criação do Layout Mestre (`AppLayout.vue`)**
+- [x] **E1-T4: Criação do Layout Mestre (`AppLayout.vue`)**
   - **Conceitos:** Layouts no Inertia, Slots Vue, componentes de navegação (TopBar, Sidebar responsiva).
   - **Ação:** Construir o layout padrão do sistema com menu lateral/superior, área para dados do usuário logado e área principal para páginas.
+  - **commit:** feat: Adicionado Menu principal e utilização de slot do vue
 - [ ] **E1-T5: Sistema Global de Notificações (Flash Messages & Toast)**
   - **Conceitos:** Inertia Shared Props (HandleInertiaRequests middleware), PrimeVue ToastService.
   - **Ação:** Configurar `Toast` do PrimeVue no `AppLayout.vue` e exibir mensagens de sucesso/erro vindas do backend (`session()->flash('success', ...)`).

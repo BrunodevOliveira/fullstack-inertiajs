@@ -2,7 +2,7 @@ import '../css/app.css';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
-import Layout from './pages/Layout.vue';
+import AppLayout from './layouts/AppLayout.vue';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
@@ -21,7 +21,7 @@ createInertiaApp(
   //   },
   // }
   {
-    layout: () => Layout,
+    layout: () => AppLayout,
     setup({ el, App, props, plugin }) {
       createApp({ render: () => h(App, props) })
           .use(plugin)
