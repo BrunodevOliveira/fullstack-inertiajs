@@ -1,8 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
+// Inicialização do serviço de Toast do PrimeVue
+const toast = useToast();
 
 // Controle de visibilidade da sidebar no mobile
 const mobileSidebarOpen = ref(false);
@@ -18,6 +23,50 @@ const navItems = [
 
 const page = usePage();
 
+// Watcher para disparar Toasts automaticamente quando o backend enviar flash messages
+watch(
+    () => page.props.flash,
+    (flash) => {
+        if (!flash) {
+            return;
+        }
+
+        if (flash.success) {
+            toast.add({
+                severity: 'success',
+                summary: 'Sucesso',
+                detail: flash.success,
+                life: 4000,
+            });
+        }
+        if (flash.error) {
+            toast.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: flash.error,
+                life: 5000,
+            });
+        }
+        if (flash.info) {
+            toast.add({
+                severity: 'info',
+                summary: 'Informação',
+                detail: flash.info,
+                life: 4000,
+            });
+        }
+        if (flash.warn) {
+            toast.add({
+                severity: 'warn',
+                summary: 'Atenção',
+                detail: flash.warn,
+                life: 4500,
+            });
+        }
+    },
+    { deep: true, immediate: true }
+);
+
 // Função auxiliar para verificar se o link atual está ativo
 const isActive = (href) => {
     if (href === '/') {
@@ -29,6 +78,8 @@ const isActive = (href) => {
 
 <template>
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+        <!-- Notificações Toast Globais -->
+        <Toast position="top-right" />
         <!-- TOPBAR / CABEÇALHO SUPERIOR -->
         <header class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30 shadow-xs">
             <!-- Lado Esquerdo: Botão Mobile + Logo -->

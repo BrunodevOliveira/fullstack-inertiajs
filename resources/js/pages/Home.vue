@@ -1,6 +1,7 @@
 
 
 <script setup>
+import { router } from '@inertiajs/vue3';
 import AppHeader from '../components/AppHeader.vue';
 import Button from 'primevue/button';
 
@@ -9,7 +10,14 @@ defineProps({
         type: String,
         default: 'Home'
     }
-})
+});
+
+// Dispara uma requisição ao backend para testar as Flash Messages
+const triggerToast = (type) => {
+    router.post('/teste-flash', { type }, {
+        preserveScroll: true,
+    });
+};
 </script>
 
 <template>
@@ -32,17 +40,20 @@ defineProps({
                 </div>
             </div>
 
-            <!-- Card de Conteúdo de Exemplo -->
+            <!-- Card de Demonstração do Sistema de Notificações Toast (E1-T5) -->
             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-xs border border-gray-200 dark:border-gray-700">
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                    Layout Mestre Configurado com Sucesso!
+                    🔔 Teste do Sistema Global de Notificações (Toast)
                 </h2>
                 <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                    Este conteúdo está sendo renderizado dentro do <code class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-emerald-600 dark:text-emerald-400 font-mono text-xs">&lt;slot /&gt;</code> do <code class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-emerald-600 dark:text-emerald-400 font-mono text-xs">AppLayout.vue</code>.
+                    Clique nos botões abaixo para enviar uma requisição ao Laravel via Inertia. O backend responde com uma <strong>Flash Message</strong> de sessão, e o <code>AppLayout.vue</code> captura automaticamente para exibir o Toast do PrimeVue:
                 </p>
-                <div class="flex gap-3">
-                    <Button label="Salvar" icon="pi pi-check" />
-                    <Button label="Excluir" icon="pi pi-trash" severity="danger" outlined />
+                
+                <div class="flex flex-wrap gap-3">
+                    <Button label="Toast Sucesso" icon="pi pi-check-circle" severity="success" @click="triggerToast('success')" />
+                    <Button label="Toast Erro" icon="pi pi-times-circle" severity="danger" @click="triggerToast('error')" />
+                    <Button label="Toast Atenção" icon="pi pi-exclamation-triangle" severity="warn" @click="triggerToast('warn')" />
+                    <Button label="Toast Info" icon="pi pi-info-circle" severity="info" @click="triggerToast('info')" />
                 </div>
             </div>
         </div>

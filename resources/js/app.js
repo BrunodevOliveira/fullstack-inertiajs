@@ -4,6 +4,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import AppLayout from './layouts/AppLayout.vue';
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 import Aura from '@primevue/themes/aura';
 import 'primeicons/primeicons.css';
 
@@ -29,7 +30,8 @@ createInertiaApp(
             theme: {
               preset: Aura // Aplica o tema
             }
-        })
+          })
+          .use(ToastService)
           .mount(el);
     },
   }

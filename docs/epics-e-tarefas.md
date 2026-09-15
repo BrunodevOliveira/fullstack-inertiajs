@@ -46,9 +46,10 @@ flowchart TD
   - **Conceitos:** Layouts no Inertia, Slots Vue, componentes de navegação (TopBar, Sidebar responsiva).
   - **Ação:** Construir o layout padrão do sistema com menu lateral/superior, área para dados do usuário logado e área principal para páginas.
   - **commit:** feat: Adicionado Menu principal e utilização de slot do vue
-- [ ] **E1-T5: Sistema Global de Notificações (Flash Messages & Toast)**
+- [x] **E1-T5: Sistema Global de Notificações (Flash Messages & Toast)**
   - **Conceitos:** Inertia Shared Props (HandleInertiaRequests middleware), PrimeVue ToastService.
   - **Ação:** Configurar `Toast` do PrimeVue no `AppLayout.vue` e exibir mensagens de sucesso/erro vindas do backend (`session()->flash('success', ...)`).
+  - **Commit** feat: adicionado Toast e compartilhamento de mensagem entre endpoints com Middleware  HandleInertiaRequests
 
 ---
 
