@@ -33,10 +33,10 @@ flowchart TD
 ### 🏛️ ÉPICO 1: Fundação, Ambiente e Design System
 > **Objetivo:** Estabelecer a base sólida da aplicação, migrar para o PrimeVue v4 (sem avisos de licença), conectar ao banco MariaDB/MySQL e construir o layout mestre da aplicação com navegação e toasts.
 
-- [ ] **E1-T1: Downgrade e Estabilização do PrimeVue v4**
+- [x] **E1-T1: Downgrade e Estabilização do PrimeVue v4**
   - **Conceitos:** Gerenciamento de dependências npm, CSS de temas, plugin Vue.
   - **Ação:** Instalar `primevue@^4` e `@primevue/themes@^4`, configurar no `app.js` com o preset Aura e remover o banner de licença.
-- [ ] **E1-T2: Configuração do Banco de Dados MySQL / MariaDB**
+- [x] **E1-T2: Configuração do Banco de Dados MySQL / MariaDB**
   - **Conceitos:** Variáveis de ambiente (`.env`), driver PDO, migrations iniciais.
   - **Ação:** Ajustar as credenciais do MySQL/MariaDB no `.env`, criar o banco de dados e rodar `php artisan migrate`.
 - [ ] **E1-T3: Instalação e Configuração dos PrimeIcons**
