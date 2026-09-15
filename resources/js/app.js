@@ -5,6 +5,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import Layout from './pages/Layout.vue';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
+import 'primeicons/primeicons.css';
 
 createInertiaApp(
   // Só é necessário caso nãso utilizemos a função inertia() em vite.config.js

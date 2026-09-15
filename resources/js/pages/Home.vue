@@ -18,8 +18,14 @@ defineProps({
         <div class="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
             <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">
                 {{ title }}
+         
             </h1>
-             <Button>Verify</Button>
+
+            <div class="flex justify-center gap-3 mb-6">
+                <Button label="Salvar" icon="pi pi-check" />
+                <Button label="Excluir" icon="pi pi-trash" severity="danger" />
+            </div>
+            
             <p class="text-gray-600 dark:text-gray-300">
                 Inertia.js + Vue 3 configurado com sucesso!
             </p>
