@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Enums\PerfilEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Usuario extends Authenticatable
@@ -58,5 +60,21 @@ class Usuario extends Authenticatable
     public function hasPerfil(PerfilEnum $perfil): bool
     {
         return $this->perfis->contains('id', $perfil->value);
+    }
+
+    /**
+     * Dados acadêmicos de aluno (caso o usuário seja discente).
+     */
+    public function aluno(): HasOne
+    {
+        return $this->hasOne(Aluno::class, 'usuario_id');
+    }
+
+    /**
+     * Logs de auditoria de acessos do usuário.
+     */
+    public function logUsers(): HasMany
+    {
+        return $this->hasMany(LogUser::class, 'usuario_id');
     }
 }

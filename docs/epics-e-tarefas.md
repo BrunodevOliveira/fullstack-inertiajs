@@ -63,7 +63,7 @@ flowchart TD
 - [x] **E2-T2: Modelagem da Tabela `usuarios` e Tabela Pivô `perfil_usuario`**
   - **Conceitos:** Custom User Model no Laravel (`auth.php`), mutators/casts de CPF, soft deletes, relacionamento `belongsToMany`.
   - **Ação:** Criar migration e Model `Usuario` (campos: cpf, nome, nome_social, email, telefone, lattes, siape, sira, situacao) conectado a `perfis`.
-- [ ] **E2-T3: Modelagem Complementar: Tabela `alunos` e `log_users`**
+- [x] **E2-T3: Modelagem Complementar: Tabela `alunos` e `log_users`**
   - **Conceitos:** Relacionamento `hasOne`, registros de auditoria de login.
   - **Ação:** Criar migrations e Models `Aluno` (curso importado) e `LogUser` (registro de acessos).
 - [ ] **E2-T4: Seeder de Usuários de Demonstração para Cada Perfil**
