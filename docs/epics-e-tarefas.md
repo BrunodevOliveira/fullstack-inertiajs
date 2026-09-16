@@ -66,7 +66,7 @@ flowchart TD
 - [x] **E2-T3: Modelagem Complementar: Tabela `alunos` e `log_users`**
   - **Conceitos:** Relacionamento `hasOne`, registros de auditoria de login.
   - **Ação:** Criar migrations e Models `Aluno` (curso importado) e `LogUser` (registro de acessos).
-- [ ] **E2-T4: Seeder de Usuários de Demonstração para Cada Perfil**
+- [x] **E2-T4: Seeder de Usuários de Demonstração para Cada Perfil**
   - **Conceitos:** Database Seeders, Factories, criptografia de senhas (Hash::make).
   - **Ação:** Criar `UsuarioSeeder` gerando contas pré-definidas para cada perfil para uso em desenvolvimento.
 - [ ] **E2-T5: Sistema de Login Tradicional e Dev Switcher (Troca Rápida)**
