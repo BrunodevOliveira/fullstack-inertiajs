@@ -60,7 +60,7 @@ flowchart TD
   - **Conceitos:** PHP Enums tipados, migrations com foreign keys, seeders idempotentes.
   - **Ação:** Criar Enum `PerfilEnum` (Root=1, Administrador=2, Docente=3, Discente=4, Técnico=5), migration da tabela `perfis` e seeder.
   - **commit** Criação de Enum, Migration, Model e Seeder para Perfil
-- [ ] **E2-T2: Modelagem da Tabela `usuarios` e Tabela Pivô `perfil_usuario`**
+- [x] **E2-T2: Modelagem da Tabela `usuarios` e Tabela Pivô `perfil_usuario`**
   - **Conceitos:** Custom User Model no Laravel (`auth.php`), mutators/casts de CPF, soft deletes, relacionamento `belongsToMany`.
   - **Ação:** Criar migration e Model `Usuario` (campos: cpf, nome, nome_social, email, telefone, lattes, siape, sira, situacao) conectado a `perfis`.
 - [ ] **E2-T3: Modelagem Complementar: Tabela `alunos` e `log_users`**
