@@ -37,6 +37,19 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+            'auth' => [
+                'user' => fn () => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'nome' => $request->user()->nome,
+                    'email' => $request->user()->email,
+                    'cpf' => $request->user()->cpf,
+                    'perfis' => $request->user()->perfis->map(fn ($p) => [
+                        'id' => $p->id,
+                        'nome' => $p->nome,
+                    ]),
+                ] : null,
+            ],
+            'is_local' => app()->isLocal(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

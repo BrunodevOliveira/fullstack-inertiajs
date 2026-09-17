@@ -1,9 +1,27 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
+// Rotas Públicas / Home
 Route::get('/', [Controller::class, 'index'])->name('home');
 Route::post('/teste-flash', [Controller::class, 'testFlash'])->name('test.flash');
-
 Route::redirect('/home', '/');
+
+// Rotas de Autenticação (Apenas Convidados / Visitantes)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+
+});
+
+// Rotas Autenticadas
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+// Rota de Dev Switcher (Apenas Ambiente Local)
+if (app()->isLocal()) {
+    Route::post('dev/login', [AuthController::class, 'devLogin'])->name('dev.login');
+}

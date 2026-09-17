@@ -5,6 +5,7 @@ import Button from 'primevue/button';
 import Drawer from 'primevue/drawer';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
+import DevSwitcher from '@/components/DevSwitcher.vue';
 
 // Inicialização do serviço de Toast do PrimeVue
 const toast = useToast();
@@ -22,6 +23,12 @@ const navItems = [
 ];
 
 const page = usePage();
+
+// Obtém os perfis formatados em texto (ex: "Docente, Administrador")
+const userProfiles = () => {
+    if (!page.props.auth?.user?.perfis?.length) return 'Convidado';
+    return page.props.auth.user.perfis.map(p => p.nome).join(' / ');
+};
 
 // Watcher para disparar Toasts automaticamente quando o backend enviar flash messages
 watch(
@@ -105,18 +112,40 @@ const isActive = (href) => {
 
             <!-- Lado Direito: Informações do Usuário e Ações -->
             <div class="flex items-center gap-3">
-                <div class="text-right hidden sm:block">
-                    <p class="text-sm font-medium text-gray-800 dark:text-gray-100">Usuário Convidado</p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Docente / Pesquisador</p>
-                </div>
-                
-                <Button
-                    icon="pi pi-user"
-                    severity="secondary"
-                    rounded
-                    outlined
-                    aria-label="Perfil"
-                />
+                <!-- Se estiver LOGADO -->
+                <template v-if="page.props.auth?.user">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                            {{ page.props.auth.user.nome }}
+                        </p>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                            {{ userProfiles() }}
+                        </p>
+                    </div>
+
+                    <!-- Botão de Sair (Logout) -->
+                    <Link
+                        href="/logout"
+                        method="post"
+                        as="button"
+                        class="p-button p-component p-button-outlined p-button-secondary p-button-sm !rounded-lg flex items-center gap-1.5 px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:!bg-red-50 dark:hover:!bg-red-950/40 hover:!border-red-300"
+                        title="Encerrar Sessão"
+                    >
+                        <i class="pi pi-sign-out text-sm" />
+                        <span class="hidden sm:inline">Sair</span>
+                    </Link>
+                </template>
+
+                <!-- Se for VISITANTE -->
+                <template v-else>
+                    <Link
+                        href="/login"
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-xs transition-colors"
+                    >
+                        <i class="pi pi-sign-in text-sm" />
+                        <span>Entrar</span>
+                    </Link>
+                </template>
             </div>
         </header>
 
@@ -169,5 +198,7 @@ const isActive = (href) => {
                 <slot />
             </main>
         </div>
+        <!-- Dev Switcher Flutuante para desenvolvimento local -->
+        <DevSwitcher />
     </div>
 </template>
