@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -49,6 +50,10 @@ class HandleInertiaRequests extends Middleware
                     ]),
                 ] : null,
             ],
+            'impersonator' => fn () => $request->session()->has('impersonator_id') ? [
+                'id' => $request->session()->get('impersonator_id'),
+                'nome' => Usuario::find($request->session()->get('impersonator_id'))?->nome,
+            ] : null,
             'is_local' => app()->isLocal(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

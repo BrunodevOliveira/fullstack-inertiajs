@@ -87,6 +87,29 @@ const isActive = (href) => {
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
         <!-- Notificações Toast Globais -->
         <Toast position="top-right" />
+        <!-- BANNER DE IMPERSONATION (Visível quando o Root estiver personificando outro usuário) -->
+        <div
+            v-if="page.props?.impersonator"
+            class="bg-amber-500 dark:bg-amber-600 text-amber-950 dark:text-white px-4 py-2.5 shadow-md flex items-center justify-between flex-wrap gap-2 sticky top-0 z-40 border-b border-amber-600/30 font-medium text-xs sm:text-sm"
+        >
+            <div class="flex items-center gap-2">
+                <i class="pi pi-exclamation-triangle text-base sm:text-lg animate-pulse" />
+                <span>
+                    <strong>Modo de Personificação Ativo:</strong> Você está conectado como 
+                    <u>{{ page.props.auth.user.nome }}</u> 
+                    <span class="opacity-80">(Original: {{ page.props.impersonator.nome }})</span>
+                </span>
+            </div>
+            <Link
+                href="/impersonar-sair"
+                method="post"
+                as="button"
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-950 text-white dark:bg-white dark:text-amber-900 rounded-md font-semibold text-xs hover:bg-black dark:hover:bg-amber-50 transition-colors shadow-xs cursor-pointer"
+            >
+                <i class="pi pi-undo text-xs" />
+                <span>Voltar ao Perfil Root</span>
+            </Link>
+        </div>
         <!-- TOPBAR / CABEÇALHO SUPERIOR -->
         <header class="h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30 shadow-xs">
             <!-- Lado Esquerdo: Botão Mobile + Logo -->

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ImpersonationController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas / Home
@@ -21,7 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
+Route::post('/impersonar/{usuario}', [ImpersonationController::class, 'start'])->name('impersonate.start');
+Route::post('/impersonar-sair', [ImpersonationController::class, 'leave'])->name('impersonate.leave');
+
 // Rota de Dev Switcher (Apenas Ambiente Local)
 if (app()->isLocal()) {
     Route::post('dev/login', [AuthController::class, 'devLogin'])->name('dev.login');
 }
+

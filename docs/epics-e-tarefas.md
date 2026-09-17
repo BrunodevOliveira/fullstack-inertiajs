@@ -14,6 +14,17 @@ Este documento é o backlog oficial de desenvolvimento e aprendizado do projeto 
 
 ---
 
+## 🏁 Como Vamos Trabalhar em Cada Tarefa (Ciclo de Mentoria Obrigatório)
+
+Qualquer agente que atuar neste projeto DEVE seguir rigorosamente este ciclo para cada tarefa:
+1. **Plano de Implementação em Documentação:** Antes de iniciar a execução da tarefa, criar um arquivo de plano detalhado no diretório `docs/planos/[Nome da Tarefa].md` (ex: `docs/planos/E2-T6 - Funcionalidade de Impersonation.md`) descrevendo a proposta técnica, arquivos afetados e passos de verificação.
+2. **Teoria & Arquitetura Primeiro:** Explicar detalhadamente os conceitos teóricos do Laravel / Vue / Inertia / PrimeVue envolvidos, o porquê de cada decisão técnica e os arquivos que serão tocados.
+3. **Implementação Guiada (NÃO ALTERE ARQUIVOS DIRETAMENTE):** O agente NUNCA deve editar ou criar os arquivos de código da aplicação diretamente via ferramentas de escrita. O agente deve fornecer o código e os comandos no chat para que o próprio USUÁRIO crie/edite os arquivos e execute os comandos no terminal. **IMPORTANTE:** Para arquivos/componentes já existentes, forneça apenas os trechos novos ou modificados com o contexto de onde inseri-los, evitando replicar arquivos inteiros desnecessariamente.
+4. **Verificação & Testes:** Guiar o usuário no teste prático da funcionalidade no navegador ou no Tinker, validar os resultados e marcar o checklist `[x]` aqui no documento.
+5. **Sugestão de Commit Detalhado:** Ao finalizar a tarefa, fornecer uma sugestão de comando `git commit` completo no padrão *Conventional Commits*, detalhando em tópicos tudo o que foi implementado.
+
+---
+
 ## 🧭 Visão Geral dos Épicos
 
 ```mermaid
@@ -72,9 +83,10 @@ flowchart TD
 - [x] **E2-T5: Sistema de Login Tradicional e Dev Switcher (Troca Rápida)**
   - **Conceitos:** Autenticação Laravel (`Auth::guard()`), Controllers Inertia, Dev Tooling condicionado a `app()->isLocal()`.
   - **Ação:** Criar tela de login por CPF/senha e componente visual flutuante para logar com 1 clique em qualquer perfil durante os testes.
-- [ ] **E2-T6: Funcionalidade de Impersonation (Root assumindo outro usuário)**
+- [x] **E2-T6: Funcionalidade de Impersonation (Root assumindo outro usuário)**
   - **Conceitos:** Sessões no Laravel, middleware de personificação, banner de aviso no topo.
   - **Ação:** Permitir que o Root assuma a identidade de qualquer usuário e possa "voltar" ao perfil original a qualquer momento.
+  - **commit:** feat: Implementada funcionalidade de Impersonation para o perfil Root com banner de aviso e retorno seguro
 - [ ] **E2-T7: Tela "Meu Perfil" (Dados Pessoais)**
   - **Conceitos:** FormRequests, validação de Lattes e telefone, Inertia Form helper (`useForm`).
   - **Ação:** Página onde o usuário visualiza seus dados acadêmicos e atualiza telefone e link do Lattes.
@@ -209,10 +221,3 @@ flowchart TD
   - **Ação:** Componentes Vue em `resources/js/pages/Errors/`.
 
 ---
-
-## 🏁 Como Vamos Trabalhar em Cada Tarefa (Ciclo de Mentoria)
-
-Para cada tarefa, seguiremos o fluxo:
-1. **Briefing & Arquitetura:** Eu explico os conceitos teóricos do Laravel / Vue / Inertia envolvidos e os arquivos que serão tocados.
-2. **Implementação Guiada:** Você escreve o código (ou eu te forneço a base para você completar e adaptar).
-3. **Verificação & Code Review:** Testamos a tela/funcionalidade no navegador, revisamos o código e marcamos o checklist `[x]` aqui no documento!
