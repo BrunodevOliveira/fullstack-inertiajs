@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImpersonationController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas / Home
@@ -20,6 +21,9 @@ Route::middleware('guest')->group(function () {
 // Rotas Autenticadas
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Rotas de Perfil
+    Route::get('/meu-perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/meu-perfil', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::post('/impersonar/{usuario}', [ImpersonationController::class, 'start'])->name('impersonate.start');

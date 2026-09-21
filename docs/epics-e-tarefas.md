@@ -87,9 +87,10 @@ flowchart TD
   - **Conceitos:** Sessões no Laravel, middleware de personificação, banner de aviso no topo.
   - **Ação:** Permitir que o Root assuma a identidade de qualquer usuário e possa "voltar" ao perfil original a qualquer momento.
   - **commit:** feat: Implementada funcionalidade de Impersonation para o perfil Root com banner de aviso e retorno seguro
-- [ ] **E2-T7: Tela "Meu Perfil" (Dados Pessoais)**
+- [x] **E2-T7: Tela "Meu Perfil" (Dados Pessoais)**
   - **Conceitos:** FormRequests, validação de Lattes e telefone, Inertia Form helper (`useForm`).
   - **Ação:** Página onde o usuário visualiza seus dados acadêmicos e atualiza telefone e link do Lattes.
+  - **commit:** feat: Implementada tela Meu Perfil com consulta institucional e edicao de dados de contato
 - [ ] **E2-T8: Gestão Administrativa de Usuários (Root / Admin)**
   - **Conceitos:** PrimeVue DataTable com paginação remota, filtros de busca por nome/CPF/perfil e modal de edição de perfis.
   - **Ação:** Criar listagem e edição de usuários para a administração.

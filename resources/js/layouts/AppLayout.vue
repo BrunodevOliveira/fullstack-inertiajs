@@ -137,14 +137,18 @@ const isActive = (href) => {
             <div class="flex items-center gap-3">
                 <!-- Se estiver LOGADO -->
                 <template v-if="page.props.auth?.user">
-                    <div class="text-right hidden sm:block">
-                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                    <Link
+                        href="/meu-perfil"
+                        class="text-right hidden sm:block hover:opacity-80 transition-opacity group cursor-pointer"
+                        title="Ver Meu Perfil"
+                    >
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
                             {{ page.props.auth.user.nome }}
                         </p>
                         <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
                             {{ userProfiles() }}
                         </p>
-                    </div>
+                    </Link>
 
                     <!-- Botão de Sair (Logout) -->
                     <Link
