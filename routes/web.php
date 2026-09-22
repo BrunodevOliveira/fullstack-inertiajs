@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUsuarioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImpersonationController;
@@ -22,8 +23,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     // Rotas de Perfil
-    Route::get('/meu-perfil', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/meu-perfil', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/meu-perfil', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::put('/meu-perfil', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // Rotas de Gestão Administrativa de Usuários
+    Route::get('/usuarios', [AdminUsuarioController::class, 'showUsers'])
+        ->name('usuarios.showUsers');
+    Route::put('/usuarios/{usuario}', [AdminUsuarioController::class, 'update'])
+        ->name('usuarios.update');
 });
 
 Route::post('/impersonar/{usuario}', [ImpersonationController::class, 'start'])->name('impersonate.start');

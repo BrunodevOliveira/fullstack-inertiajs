@@ -91,9 +91,10 @@ flowchart TD
   - **Conceitos:** FormRequests, validação de Lattes e telefone, Inertia Form helper (`useForm`).
   - **Ação:** Página onde o usuário visualiza seus dados acadêmicos e atualiza telefone e link do Lattes.
   - **commit:** feat: Implementada tela Meu Perfil com consulta institucional e edicao de dados de contato
-- [ ] **E2-T8: Gestão Administrativa de Usuários (Root / Admin)**
+- [x] **E2-T8: Gestão Administrativa de Usuários (Root / Admin)**
   - **Conceitos:** PrimeVue DataTable com paginação remota, filtros de busca por nome/CPF/perfil e modal de edição de perfis.
   - **Ação:** Criar listagem e edição de usuários para a administração.
+  - **commit:** feat: Implementada gestao administrativa de usuarios com DataTable, filtros avancados e modal de edicao de perfis
 
 ---
 
