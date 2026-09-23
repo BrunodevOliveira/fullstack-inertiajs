@@ -17,9 +17,11 @@ Este documento é o backlog oficial de desenvolvimento e aprendizado do projeto 
 ## 🏁 Como Vamos Trabalhar em Cada Tarefa (Ciclo de Mentoria Obrigatório)
 
 Qualquer agente que atuar neste projeto DEVE seguir rigorosamente este ciclo para cada tarefa:
-1. **Plano de Implementação em Documentação:** Antes de iniciar a execução da tarefa, criar um arquivo de plano detalhado no diretório `docs/planos/[Nome da Tarefa].md` (ex: `docs/planos/E2-T6 - Funcionalidade de Impersonation.md`) descrevendo a proposta técnica, arquivos afetados e passos de verificação.
-2. **Teoria & Arquitetura Primeiro:** Explicar detalhadamente os conceitos teóricos do Laravel / Vue / Inertia / PrimeVue envolvidos, o porquê de cada decisão técnica e os arquivos que serão tocados.
-3. **Implementação Guiada (NÃO ALTERE ARQUIVOS DIRETAMENTE):** O agente NUNCA deve editar ou criar os arquivos de código da aplicação diretamente via ferramentas de escrita. O agente deve fornecer o código e os comandos no chat para que o próprio USUÁRIO crie/edite os arquivos e execute os comandos no terminal. **IMPORTANTE:** Para arquivos/componentes já existentes, forneça apenas os trechos novos ou modificados com o contexto de onde inseri-los, evitando replicar arquivos inteiros desnecessariamente.
+1. **Plano de Implementação em Documentação:** Antes de iniciar a execução da tarefa, criar um arquivo de plano detalhado no diretório `docs/planos/[Nome da Tarefa].md` (ex: `docs/planos/E2-T6 - Funcionalidade de Impersonation.md`) descrevendo a proposta técnica dividida em partes/etapas lógicas, arquivos afetados e passos de verificação.
+2. **Execução Estritamente Incremental (Etapa por Etapa):** O agente DEVE conduzir o plano de forma incremental. Se o plano for dividido em partes (ex: Parte 1: Migrations/Models, Parte 2: Controllers/Rotas, Parte 3: Frontend):
+   - Apresentar a teoria e o código **apenas da etapa atual** (Parte 1).
+   - Aguardar o usuário implementar, tirar dúvidas e confirmar que está pronto antes de avançar para a etapa seguinte (Parte 2), e assim sucessivamente. NUNCA despejar todas as etapas ou códigos da tarefa de uma vez só.
+3. **Implementação Guiada (NÃO ALTERE ARQUIVOS DIRETAMENTE):** O agente NUNCA deve editar ou criar os arquivos de código da aplicação diretamente via ferramentas de escrita (ferramentas como `write_to_file` ou `replace_file_content` para código da aplicação). Em TODAS as interações, o agente DEVE fornecer o código completo ou os trechos necessários e os comandos diretamente por este chat para que o próprio USUÁRIO crie/edite os arquivos e execute os comandos. Apenas arquivos de documentação (como os planos em `docs/planos/` e o checklist neste arquivo) podem ser mantidos pelo agente. **IMPORTANTE:** Para arquivos/componentes já existentes, forneça os trechos modificados com o contexto claro de onde inseri-los.
 4. **Verificação & Testes:** Guiar o usuário no teste prático da funcionalidade no navegador ou no Tinker, validar os resultados e marcar o checklist `[x]` aqui no documento.
 5. **Sugestão de Commit Detalhado:** Ao finalizar a tarefa, fornecer uma sugestão de comando `git commit` completo no padrão *Conventional Commits*, detalhando em tópicos tudo o que foi implementado.
 
@@ -101,9 +103,10 @@ flowchart TD
 ### 📚 ÉPICO 3: Estrutura Acadêmica (Cadastros Administrativos)
 > **Objetivo:** Cadastrar e gerenciar toda a árvore institucional: Campus, Cursos, Departamentos/Laboratórios, Disciplinas (PINCs) e Agências de Fomento, com regras estritas de proteção contra exclusão.
 
-- [ ] **E3-T1: Modelagem e Seeders da Estrutura Acadêmica**
+- [x] **E3-T1: Modelagem e Seeders da Estrutura Acadêmica**
   - **Conceitos:** Chaves estrangeiras em cascata ou restritivas, relacionamentos em árvore (`Campus -> Curso -> Departamento`).
   - **Ação:** Criar migrations e models para `Campus`, `Curso`, `Departamento`, `Disciplina` (PINC 1 a 4) e `Agencia`.
+  - **commit:** feat: Implementada modelagem e seeders da estrutura academica com integridade referencial estrita e enums
 - [ ] **E3-T2: CRUD Administrativo de Campus**
   - **Conceitos:** Resource Controllers, FormRequests, PrimeVue Dialog com formulário reativo.
   - **Ação:** Criar listagem, criação, edição e exclusão (com validação de dependências: bloquear se houver cursos vinculados).
