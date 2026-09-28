@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\AdminUsuarioController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas / Home
-Route::get('/', [Controller::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/teste-flash', [Controller::class, 'testFlash'])->name('test.flash');
 Route::redirect('/home', '/');
 
@@ -33,6 +35,13 @@ Route::middleware('auth')->group(function () {
         ->name('usuarios.showUsers');
     Route::put('/usuarios/{usuario}', [AdminUsuarioController::class, 'update'])
         ->name('usuarios.update');
+
+    // Rotas de Gestão Administrativa de Campi
+    Route::resource('campuses', CampusController::class)
+        ->parameters([
+            'campuses' => 'campus'
+        ])
+        ->only(['index', 'store', 'update', 'destroy']);
 });
 
 Route::post('/impersonar/{usuario}', [ImpersonationController::class, 'start'])->name('impersonate.start');

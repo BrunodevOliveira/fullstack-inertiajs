@@ -107,9 +107,10 @@ flowchart TD
   - **Conceitos:** Chaves estrangeiras em cascata ou restritivas, relacionamentos em árvore (`Campus -> Curso -> Departamento`).
   - **Ação:** Criar migrations e models para `Campus`, `Curso`, `Departamento`, `Disciplina` (PINC 1 a 4) e `Agencia`.
   - **commit:** feat: Implementada modelagem e seeders da estrutura academica com integridade referencial estrita e enums
-- [ ] **E3-T2: CRUD Administrativo de Campus**
+- [x] **E3-T2: CRUD Administrativo de Campus**
   - **Conceitos:** Resource Controllers, FormRequests, PrimeVue Dialog com formulário reativo.
   - **Ação:** Criar listagem, criação, edição e exclusão (com validação de dependências: bloquear se houver cursos vinculados).
+  - **commit:** feat: Implementado CRUD administrativo de Campus com PrimeVue DataTable, Dialog reativo e bloqueio de exclusao por dependencia
 - [ ] **E3-T3: CRUD Administrativo de Cursos**
   - **Conceitos:** Dropdowns reativos (selecionar Campus), validação de e-mail institucional e flag `colaborador`.
   - **Ação:** Tela administrativa de cursos vinculados aos campi.
@@ -221,8 +222,8 @@ flowchart TD
 - [ ] **E7-T4: Exportação Administrativa de Dados (XLSX / CSV)**
   - **Conceitos:** Exportação de relatórios de alunos aprovados/reprovados e dados cadastrais.
   - **Ação:** Botões de exportação na área administrativa.
-- [ ] **E7-T5: Telas de Erro Customizadas (401, 403, 404, 503)**
-  - **Conceitos:** Inertia Error Handling, páginas de erro amigáveis e acessíveis com retorno à Home.
-  - **Ação:** Componentes Vue em `resources/js/pages/Errors/`.
+- [ ] **E7-T5: Telas de Erro Customizadas (401, 403, 404, 500, 503)**
+  - **Conceitos:** Inertia Error Handling no `bootstrap/app.php`, interceptação de `HttpException`, páginas de erro amigáveis e acessíveis em Vue com PrimeVue/Tailwind e botão de retorno à Home.
+  - **Ação:** Criação do componente `resources/js/pages/Error.vue` e configuração do manipulador de exceções HTTP no `bootstrap/app.php`.
 
 ---

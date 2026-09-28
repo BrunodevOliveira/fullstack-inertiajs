@@ -4,16 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class Controller
 {
-    public function index(): Response
-    {
-        return Inertia::render('Home', ['title' => 'Página Inicial']);
-    }
-
     public function testFlash(Request $request): RedirectResponse
     {
         $type = $request->input('type', 'success');
