@@ -19,6 +19,7 @@ const navItems = [
     { label: 'Projetos', href: '/projetos', icon: 'pi pi-folder' },
     { label: 'Meus Projetos', href: '/meus-projetos', icon: 'pi pi-bookmark' },
     { label: 'Campi', href: '/campuses', icon: 'pi pi-building' },
+    { label: 'Cursos', href: '/cursos', icon: 'pi pi-book' }, 
     { label: 'Usuários', href: '/usuarios', icon: 'pi pi-users' },
     { label: 'Relatórios & Avaliações', href: '/avaliacoes', icon: 'pi pi-file-edit' },
 ];

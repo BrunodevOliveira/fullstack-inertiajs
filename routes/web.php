@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminUsuarioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CursoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\ProfileController;
@@ -39,8 +40,13 @@ Route::middleware('auth')->group(function () {
     // Rotas de Gestão Administrativa de Campi
     Route::resource('campuses', CampusController::class)
         ->parameters([
-            'campuses' => 'campus'
+            'campuses' => 'campus',
         ])
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    // Rotas de Gestão Administrativa de Cursos
+    Route::resource('cursos', CursoController::class)
+        ->parameters(['cursos' => 'curso'])
         ->only(['index', 'store', 'update', 'destroy']);
 });
 
@@ -51,4 +57,3 @@ Route::post('/impersonar-sair', [ImpersonationController::class, 'leave'])->name
 if (app()->isLocal()) {
     Route::post('dev/login', [AuthController::class, 'devLogin'])->name('dev.login');
 }
-
