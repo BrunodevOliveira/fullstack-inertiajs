@@ -111,12 +111,13 @@ flowchart TD
   - **Conceitos:** Resource Controllers, FormRequests, PrimeVue Dialog com formulário reativo.
   - **Ação:** Criar listagem, criação, edição e exclusão (com validação de dependências: bloquear se houver cursos vinculados).
   - **commit:** feat: Implementado CRUD administrativo de Campus com PrimeVue DataTable, Dialog reativo e bloqueio de exclusao por dependencia
-- [ ] **E3-T3: CRUD Administrativo de Cursos**
+- [x] **E3-T3: CRUD Administrativo de Cursos**
   - **Conceitos:** Dropdowns reativos (selecionar Campus), validação de e-mail institucional e flag `colaborador`.
   - **Ação:** Tela administrativa de cursos vinculados aos campi.
-- [ ] **E3-T4: CRUD Administrativo de Departamentos / Laboratórios**
+- [x] **E3-T4: CRUD Administrativo de Departamentos / Laboratórios**
   - **Conceitos:** Regra de unicidade composta (`unique:departamentos,nome,NULL,id,curso_id`), filtros por curso.
   - **Ação:** Gerenciamento dos departamentos subordinados a cursos.
+  - **commit:** feat: Implementado CRUD administrativo de Departamentos e Laboratorios com unicidade composta e filtros encadeados
 - [ ] **E3-T5: CRUD Administrativo de Disciplinas / Períodos (PINC)**
   - **Conceitos:** Bloqueio de exclusão quando associada a avaliações, listagem ordenada.
   - **Ação:** Cadastro e manutenção das disciplinas do programa.

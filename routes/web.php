@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\ProfileController;
@@ -47,6 +48,11 @@ Route::middleware('auth')->group(function () {
     // Rotas de Gestão Administrativa de Cursos
     Route::resource('cursos', CursoController::class)
         ->parameters(['cursos' => 'curso'])
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    // Rotas de Gestão Administrativa de Departamentos / Laboratórios
+    Route::resource('departamentos', DepartamentoController::class)
+        ->parameters(['departamentos' => 'departamento'])
         ->only(['index', 'store', 'update', 'destroy']);
 });
 
