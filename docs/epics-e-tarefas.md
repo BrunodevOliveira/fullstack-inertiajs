@@ -122,9 +122,10 @@ flowchart TD
   - **Conceitos:** Bloqueio de exclusão quando associada a avaliações, listagem ordenada.
   - **Ação:** Cadastro e manutenção das disciplinas do programa.
   - **commit:** feat: Implementado CRUD administrativo de Disciplinas e Periodos (PINC) com ordenacao natural e trava de exclusao por dependencia
-- [ ] **E3-T6: CRUD Administrativo de Agências de Fomento**
+- [x] **E3-T6: CRUD Administrativo de Agências de Fomento**
   - **Conceitos:** Enum `AgenciaTipoEnum` (1: bolsista, 2: projeto, 3: ambos), registro especial "Sem Bolsa".
   - **Ação:** Cadastro de agências de fomento financeiro.
+  - **commit:** feat: Implementado CRUD administrativo de Agencias de Fomento com filtros por tipo, unicidade e protecao do registro Sem Bolsa
 
 ---
 

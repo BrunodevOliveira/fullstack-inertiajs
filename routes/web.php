@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminUsuarioController;
+use App\Http\Controllers\AgenciaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\Controller;
@@ -55,10 +56,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('departamentos', DepartamentoController::class)
         ->parameters(['departamentos' => 'departamento'])
         ->only(['index', 'store', 'update', 'destroy']);
-    
+
     // Rotas de Gestão Administrativa de Disciplinas / Períodos (PINC)
     Route::resource('disciplinas', DisciplinaController::class)
         ->parameters(['disciplinas' => 'disciplina'])
+        ->only(['index', 'store', 'update', 'destroy']);
+
+    // Rotas de Gestão Administrativa de Agências de Fomento
+    Route::resource('agencias', AgenciaController::class)
+        ->parameters(['agencias' => 'agencia'])
         ->only(['index', 'store', 'update', 'destroy']);
 });
 
