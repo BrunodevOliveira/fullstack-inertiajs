@@ -118,9 +118,10 @@ flowchart TD
   - **Conceitos:** Regra de unicidade composta (`unique:departamentos,nome,NULL,id,curso_id`), filtros por curso.
   - **Ação:** Gerenciamento dos departamentos subordinados a cursos.
   - **commit:** feat: Implementado CRUD administrativo de Departamentos e Laboratorios com unicidade composta e filtros encadeados
-- [ ] **E3-T5: CRUD Administrativo de Disciplinas / Períodos (PINC)**
+- [x] **E3-T5: CRUD Administrativo de Disciplinas / Períodos (PINC)**
   - **Conceitos:** Bloqueio de exclusão quando associada a avaliações, listagem ordenada.
   - **Ação:** Cadastro e manutenção das disciplinas do programa.
+  - **commit:** feat: Implementado CRUD administrativo de Disciplinas e Periodos (PINC) com ordenacao natural e trava de exclusao por dependencia
 - [ ] **E3-T6: CRUD Administrativo de Agências de Fomento**
   - **Conceitos:** Enum `AgenciaTipoEnum` (1: bolsista, 2: projeto, 3: ambos), registro especial "Sem Bolsa".
   - **Ação:** Cadastro de agências de fomento financeiro.

@@ -21,6 +21,7 @@ const navItems = [
     { label: 'Campi', href: '/campuses', icon: 'pi pi-building' },
     { label: 'Cursos', href: '/cursos', icon: 'pi pi-book' }, 
     { label: 'Departamentos', href: '/departamentos', icon: 'pi pi-sitemap' },
+    { label: 'Disciplinas (PINC)', href: '/disciplinas', icon: 'pi pi-calendar' },
     { label: 'Usuários', href: '/usuarios', icon: 'pi pi-users' },
     { label: 'Relatórios & Avaliações', href: '/avaliacoes', icon: 'pi pi-file-edit' },
 ];
