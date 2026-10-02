@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AgenciaTipoEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Agencia extends Model
@@ -50,5 +51,10 @@ class Agencia extends Model
     public function getIsSemBolsaAttribute(): bool
     {
         return $this->isSemBolsa();
+    }
+
+    public function projetos(): HasMany
+    {
+        return $this->hasMany(Projeto::class, 'agencia_id');
     }
 }

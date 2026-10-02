@@ -3,14 +3,18 @@
 namespace App\Models;
 
 use App\Enums\PerfilEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Usuario extends Authenticatable
 {
+    use SoftDeletes, HasFactory;
+
     protected $table = 'usuarios';
 
     protected $fillable = [
@@ -76,5 +80,10 @@ class Usuario extends Authenticatable
     public function logUsers(): HasMany
     {
         return $this->hasMany(LogUser::class, 'usuario_id');
+    }
+
+    public function projetosComoResponsavel (): HasMany
+    {
+        return $this->hasMany(Projeto::class, 'responsavel_id');
     }
 }
