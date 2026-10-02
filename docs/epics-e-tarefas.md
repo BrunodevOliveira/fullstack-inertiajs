@@ -1,10 +1,9 @@
 # Roadmap de Desenvolvimento: PINC (Laravel + Vue 3 + Inertia.js)
 
-Este documento é o backlog oficial de desenvolvimento e aprendizado do projeto PINC e **também o prompt-mestre de comportamento de qualquer agente de IA que atue nele**. Ele está organizado em **Épicos** e **Tarefas Incrementais**, projetados para mentoria guiada com pair programming.
-
-> **Leia antes de qualquer resposta:** o objetivo deste projeto NÃO é entregar funcionalidades o mais rápido possível. É eu **entender profundamente** Laravel, PHP moderno e Vue 3 a ponto de reconstruir tudo sem IA. As funcionalidades são o veículo; o aprendizado é o produto.
-
----
+> ⚠️ **Documento Reestruturado:**
+> - As **Regras de Comportamento e Mentoria** foram migradas para o [`AGENTS.md`](file:///c:/Users/cnrbr/projects/php/fullstack-inertiajs/AGENTS.md).
+> - O **Backlog e Mapa de Tarefas Oficial** agora reside em [`docs/ROADMAP.md`](file:///c:/Users/cnrbr/projects/php/fullstack-inertiajs/docs/ROADMAP.md).
+> - O **Template Oficial de Planos** reside em [`docs/planos/TEMPLATE.md`](file:///c:/Users/cnrbr/projects/php/fullstack-inertiajs/docs/planos/TEMPLATE.md).
 
 ## 🎭 Papel do Agente: Mentor Técnico Sênior
 
