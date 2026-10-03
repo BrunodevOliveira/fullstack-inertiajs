@@ -23,3 +23,24 @@ Registro de evolução técnica, lacunas identificadas e fila de repetição esp
   - `belongsTo` vs `hasMany` e parâmetros explícitos (D+1: 02/10/2026, D+7: 08/10/2026).
   - Local Scopes e manipulação de `$query` (D+1: 02/10/2026, D+7: 08/10/2026, D+21: 22/10/2026).
   - Asserções no PHPUnit (`assertDatabaseHas`, `assertInstanceOf`, `assertCount`, `assertSoftDeleted`) (D+1: 02/10/2026).
+
+---
+
+## E4-T2: Regras de Negócio de Criação de Projeto (Policy docente + validação de link Lattes)
+- **Data de Conclusão:** 03/10/2026
+- **Status:** Concluído com sucesso (4 testes passando, 4 asserções)
+- **Conceitos Praticados:**
+  - Policy Auto-Discovery no Laravel 11/12: convenção de nomenclatura (`App\Policies\{Model}Policy`) eliminando a necessidade de registro manual.
+  - Método `before()` como interceptador geral de permissões para perfis privilegiados (`Root`, `Administrador`), compreendendo a semântica de retorno (`true` para bypass, `null` para delegar ao método).
+  - Objeto de resposta `Illuminate\Auth\Access\Response` com `Response::allow()` e `Response::deny('...')` fornecendo mensagens amigáveis de autorização (HTTP 403).
+  - Helper `blank()` do Laravel para validação abrangente de ausência de dados (`null`, string vazia e string contendo apenas espaços em branco via `trim`).
+  - PHPUnit Feature Test para Policies com `RefreshDatabase`, seeding de dependências no `setUp()` (`PerfilSeeder`) e testes de autorização com `$user->can(...)` e `Gate::inspect(...)`.
+- **Lacunas Superadas:**
+  - Diferença arquitetural entre Middleware (camada HTTP/rede) e Policy (camada de domínio/modelo).
+  - Comportamento de truthy em PHP e a lógica de negação para validações de bloqueio.
+  - Mecânica do `before()`: nunca retornar `false` se o objetivo for apenas delegar a decisão para o método da Policy.
+- **Fila de Revisão Espaçada:**
+  - Policy Auto-Discovery e `Response::deny()` vs `bool` (D+1: 04/10/2026, D+7: 10/10/2026).
+  - Semântica de retorno do método `before()` (`true` vs `null` vs `false`) (D+1: 04/10/2026, D+7: 10/10/2026, D+21: 24/10/2026).
+  - Testes de autorização com `$user->can()` e `Gate::inspect()` (D+1: 04/10/2026, D+7: 10/10/2026).
+
