@@ -99,7 +99,8 @@ Consulte este mapa como disparador socrático para levantar pistas e casos adver
   *Commit:* `feat: Implementada modelagem da tabela projetos, model Projeto, relacionamentos, escopos e testes`
 - [x] **E4-T2:** Regras de Negócio de Criação de Projeto (Policy docente + validação de link Lattes).  
   *Commit:* `feat: Implementada ProjetoPolicy com restrição de perfil docente, trava de Lattes e testes de autorização`
-- [ ] **E4-T3:** Formulário de Cadastro e Edição de Projetos (Dropdown encadeado Curso → Depto, validação de vagas).  
+- [x] **E4-T3:** Formulário de Cadastro e Edição de Projetos (Dropdown encadeado Curso → Depto, validação de vagas).  
+  *Commit:* `feat: Implementado formulario de cadastro e edicao de projetos com dropdown encadeado, validacao e testes`
 - [ ] **E4-T4:** Associação Automática do Docente Responsável como Participante (`DB::transaction` / Domain Action).  
 - [ ] **E4-T5:** Catálogo Público de Projetos na Home (Filtros por query params, `preserveState`, busca textual, paginação).  
 - [ ] **E4-T6:** Listagem Autenticada de Projetos (Visibilidade segmentada: Meus Projetos vs Todos os Projetos).  

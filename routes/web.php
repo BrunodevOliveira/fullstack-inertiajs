@@ -11,6 +11,7 @@ use App\Http\Controllers\DisciplinaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjetoController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas / Home
@@ -66,6 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('agencias', AgenciaController::class)
         ->parameters(['agencias' => 'agencia'])
         ->only(['index', 'store', 'update', 'destroy']);
+
+    // Rotas de Gestão Administrativa de Projetos
+    Route::resource('projetos', ProjetoController::class)
+    ->only(['create', 'store', 'edit', 'update']);
 });
 
 Route::post('/impersonar/{usuario}', [ImpersonationController::class, 'start'])->name('impersonate.start');

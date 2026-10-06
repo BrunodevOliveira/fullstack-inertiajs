@@ -44,3 +44,26 @@ Registro de evolução técnica, lacunas identificadas e fila de repetição esp
   - Semântica de retorno do método `before()` (`true` vs `null` vs `false`) (D+1: 04/10/2026, D+7: 10/10/2026, D+21: 24/10/2026).
   - Testes de autorização com `$user->can()` e `Gate::inspect()` (D+1: 04/10/2026, D+7: 10/10/2026).
 
+---
+
+## E4-T3: Formulário de Cadastro e Edição de Projetos (Dropdown encadeado Curso → Depto, validação de vagas)
+- **Data de Conclusão:** 06/10/2026
+- **Status:** Concluído com sucesso (6 testes passando, 19 asserções)
+- **Conceitos Praticados:**
+  - FormRequest (`ProjetoRequest`) com regras de domínio (`min:1`, `withoutTrashed()`) e mensagens personalizadas em português.
+  - Separação RESTful no Inertia: rotas de tela (`create`, `edit`) com GET vs rotas de mutação (`store`, `update`) com POST/PUT.
+  - Segurança contra IDOR: fixação do `responsavel_id` pelo usuário autenticado no backend (`$request->user()->id`), sem confiar no payload do cliente.
+  - Eager loading relacional aninhado (`$projeto->load('departamento.curso')`) para resolver dependências em cascata no frontend.
+  - Reatividade encadeada no Vue 3 com PrimeVue v4: uso de `computed` para filtrar departamentos conforme o `form.curso_id` e reset de seleção via evento `@change`.
+  - Arquitetura de componentes limpa (Pattern de Partials): extração de `ProjetoForm.vue` mantendo `Create.vue` e `Edit.vue` como cascas modulares e sem duplicação de template.
+  - Testes de Feature completos no PHPUnit: `actingAs()`, teste de contrato com `assertInertia()`, validação de erros de sessão (`assertSessionHasErrors(['vagas'])`), redirecionamentos, mensagens flash e `$this->withoutVite()`.
+- **Lacunas Superadas:**
+  - Por que FormRequests só devem ser injetados em mutações (POST/PUT) e não em requisições de exibição de tela (GET).
+  - O papel do `actingAs()` na simulação da sessão autenticada para middlewares, policies e `$request->user()`.
+  - Como o `computed` do Vue rastreia dependências reativas automaticamente.
+  - Necessidade de `parent::setUp()` e `$this->seed(PerfilSeeder::class)` para tabelas de catálogo com `RefreshDatabase`.
+- **Fila de Revisão Espaçada:**
+  - Dropdown encadeado no Vue 3 com `computed` e `useForm` (D+1: 07/10/2026, D+7: 13/10/2026).
+  - Proteção contra IDOR no backend e autorização com Policies (D+1: 07/10/2026, D+7: 13/10/2026).
+  - Asserções de teste no Inertia (`assertInertia`, `assertSessionHasErrors`) e `$this->withoutVite()` (D+1: 07/10/2026, D+7: 13/10/2026, D+21: 27/10/2026).
+

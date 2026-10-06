@@ -10,7 +10,11 @@ use Illuminate\Auth\Access\Response;
 class ProjetoPolicy
 {
     // Executa sempre que ProjetoPolicy é chamado antes de qualquer outro mmétodo.
-    // Se retornar true, pula a execução dos  métodos da policy, caso contrário executa o método especifico
+    /**
+     * true: autoriza imediatamente (bypass).
+     * false: nega imediatamente para todo mundo, sem nunca chamar os métodos específicos (mesmo que o método fosse autorizar!).
+     * null: delega a decisão para o método específico da Policy (create, update, etc.).
+     */
     public function before(Usuario $usuario, string $ability): ?bool
     {
         if ($usuario->hasPerfil(PerfilEnum::Root) ||
@@ -58,9 +62,12 @@ class ProjetoPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Usuario $usuario, Projeto $projeto): bool
+    public function update(Usuario $usuario, Projeto $projeto): Response
     {
-        return false;
+        if($projeto->responsavel_id != $usuario->id) {
+            return Response::deny('Apenas o docente responsável pode editar este projeto.');
+        }
+        return Response::allow();
     }
 
     /**
