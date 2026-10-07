@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Usuario extends Authenticatable
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'usuarios';
 
@@ -82,8 +82,20 @@ class Usuario extends Authenticatable
         return $this->hasMany(LogUser::class, 'usuario_id');
     }
 
-    public function projetosComoResponsavel (): HasMany
+    public function projetosComoResponsavel(): HasMany
     {
         return $this->hasMany(Projeto::class, 'responsavel_id');
+    }
+
+    public function projetosParticipados(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Projeto::class,
+            'projeto_usuario',
+            'usuario_id',
+            'projeto_id'
+        )
+            ->withPivot('flags')// Adicionamos isso para que a model tenha acesso também a coluna flags da tabela pivot (por padrão ela só tem acesso as colunas de id que vinculam as tabelas relacionadas ao pivot)
+            ->withTimestamps();
     }
 }

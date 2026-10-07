@@ -67,3 +67,37 @@ Registro de evolução técnica, lacunas identificadas e fila de repetição esp
   - Proteção contra IDOR no backend e autorização com Policies (D+1: 07/10/2026, D+7: 13/10/2026).
   - Asserções de teste no Inertia (`assertInertia`, `assertSessionHasErrors`) e `$this->withoutVite()` (D+1: 07/10/2026, D+7: 13/10/2026, D+21: 27/10/2026).
 
+---
+
+## E4-T4: Modelagem da Pivô `projeto_usuario` e Enum `ParticipanteStatusEnum`
+- **Data de Conclusão:** 07/10/2026
+- **Status:** Concluído com sucesso (4 testes passando, 6 asserções no pivot test; 17 testes passando na suíte de projetos)
+- **Conceitos Praticados:**
+  - Backed Enum nativo do PHP 8.3 (`ParticipanteStatusEnum: int`) com ciclo de vida acadêmico (`Ativo`, `Entrando`, `Saindo`, `Historico`), `match ($this)` para rótulos legíveis e severidades visuais para o PrimeVue.
+  - Comportamento de Backed Enums: diferença entre `from()` (estrito, lança `ValueError`) e `tryFrom()` (retorna `null` de forma segura).
+  - Migration de tabela pivô intermediária N:N (`projeto_usuario`) com chaves estrangeiras com `cascadeOnDelete()`, `timestamps()` e índice de unicidade composto `$table->unique(['projeto_id', 'usuario_id'])`.
+  - Distinção essencial entre Soft Delete (`UPDATE` no banco) e Hard Delete (`DELETE` físico), entendendo por que o soft delete do projeto pai não aciona o `ON DELETE CASCADE` do motor do banco.
+  - Relacionamentos N:N no Eloquent via `BelongsToMany` em ambos os lados (`Projeto` e `Usuario`), ordem de chaves (`$foreignPivotKey`, `$relatedPivotKey`) e regras da convenção automática do Laravel.
+  - Mecanismo do método mágico `__get()` do PHP permitindo acessar métodos de relação como propriedades dinâmicas com cache em `Collection`.
+  - Como o Eloquent lida com atributos intermediários da tabela associativa via sub-objeto `$model->pivot` e a necessidade de `withPivot('flags')` e `withTimestamps()`.
+  - Testes de Feature automatizados no PHPUnit com `RefreshDatabase`, obrigatoriedade do `parent::setUp()`, testes de bidirecionalidade com Collection (`contains()`), interceptação de exceções de integridade do banco (`expectException(QueryException::class)`) e asserções direcionadas com `assertDatabaseMissing()`.
+- **Lacunas Superadas:**
+  - A clássica inversão de chaves no `belongsToMany` em classes relacionadas (quem aponta para MIM vs quem aponta para o OUTRO).
+  - Como a relação N:N é processada por baixo dos panos via SQL `INNER JOIN` e por que colunas extras da pivô exigem o `withPivot`.
+  - Por que `parent::setUp()` deve ser chamado antes de qualquer operação ao sobrescrever o `setUp` em testes do Laravel.
+- **Aprofundamento Técnico: Como o Eloquent Lida com N:N e o `withPivot`:**
+  - **Mecanismo Relacional (SQL):** Ao executar `$projeto->participantes`, o Eloquent monta um `INNER JOIN` entre a tabela de destino e a intermediária:
+    ```sql
+    SELECT usuarios.*, projeto_usuario.projeto_id, projeto_usuario.usuario_id, projeto_usuario.flags
+    FROM usuarios
+    INNER JOIN projeto_usuario ON usuarios.id = projeto_usuario.usuario_id
+    WHERE projeto_usuario.projeto_id = 1;
+    ```
+  - **Hidratação do Model e o Objeto `pivot`:** As colunas da tabela principal (`usuarios`) tornam-se atributos nativos do model (`$usuario->nome`). Os atributos originários da tabela intermediária (`projeto_usuario`) são alocados dentro de uma instância auxiliar acoplada: `$usuario->pivot`.
+  - **Por que `withPivot('flags')` é indispensável:** Por economia de memória e processamento, o Eloquent por padrão copia para o objeto `pivot` **apenas as duas chaves estrangeiras** (`projeto_id` e `usuario_id`), descartando todas as outras colunas. O método `->withPivot('flags')` comanda o Eloquent a não descartar e popular a coluna no objeto (`$usuario->pivot->flags`). Sem essa declaração, a tentativa de leitura retorna `null` silenciosamente em tempo de execução.
+- **Fila de Revisão Espaçada:**
+  - Convenções e ordem de chaves do `belongsToMany` e funcionamento do `withPivot` (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
+  - Backed Enums (`from` vs `tryFrom`) e teste de exceções no PHPUnit com `expectException` (D+1: 08/10/2026, D+7: 14/10/2026).
+  - Índice de unicidade composto em tabelas pivô vs índices simples (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
+
+

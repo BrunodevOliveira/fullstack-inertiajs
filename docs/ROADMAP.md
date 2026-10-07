@@ -24,16 +24,16 @@ Consulte este mapa como disparador socrático para levantar pistas e casos adver
 | **E4-T1** | Models Eloquent ≈ Interfaces TS + Data Layer com ORM ativo | Responsável removido (soft delete); escopos ativos/arquivados; N+1 em listagens. |
 | **E4-T2** | Policy ≈ CanActivate no servidor (verdade final; guard no front é UX) | Docente sem Lattes; Lattes em branco; POST direto de aluno via terminal/cURL. |
 | **E4-T3** | `useForm` ≈ Reactive Forms; Dropdown encadeado ≈ `valueChanges` com `watch` | Trocar curso após escolher departamento; vagas negativas ou não inteiras; mass assignment. |
-| **E4-T4** | `DB::transaction` ≈ Operação atômica "tudo ou nada"; Observer ≈ Domain Event | Forçar exceção ao criar participante e garantir rollback total do projeto. |
-| **E4-T5** | Query params + `preserveState` ≈ `ActivatedRoute.queryParams` | Busca com `%` ou `_` (curingas SQL); página além do limite; XSS no modal. |
-| **E4-T6** | Visibilidade por perfil ≈ Route Guards com filtros de escopo no backend | Docente alterando ID na URL para inspecionar projeto alheio (IDOR); conflito admin vs docente. |
-| **E4-T7** | Validação cruzada (vagas vs ativos) ≈ Custom Validator de `FormGroup` | Redução de vagas concorrente com indicação (race condition); idempotência ao arquivar. |
-| **E5-T1** | Enum com cast Eloquent ≈ Enum TS persistido no banco | Duplicidade do par `(projeto_id, usuario_id)`; valores de status inválidos no payload. |
-| **E5-T2** | Accordion/Tabs ≈ `ngSwitch`/`ng-template`; Props/Emits ≈ `@Input`/@Output | Listagens vazias; botões ocultos na UI mas com rotas acessíveis no backend. |
-| **E5-T3** | Service Laravel ≈ `@Injectable`; Service Container ≈ Angular Injector | Aceitar duas vezes; aceitar sem vaga livre; transição ilegal (Histórico → Ativo). |
-| **E5-T4** | Modal de busca com debounce ≈ Autocomplete com `debounceTime` (RxJS) | CPF não cadastrado; CPF com/sem máscara; CPF de professor; aluno já ativo ou sem vagas. |
-| **E5-T5** | Event/Listener Laravel ≈ Subject/EventEmitter | Falha ao instanciar avaliação pós-aceite; duplo clique rápido; usuário sem privilégio. |
-| **E5-T6** | Máquina de estados ≈ Store com transições finitas | Reversibilidade de Saindo vs irreversibilidade de Histórico; liberação atômica de vaga. |
+| **E4-T4** | Enum com cast Eloquent ≈ Enum TS persistido no banco; pivô N:N ≈ Many-to-Many | Duplicidade do par `(projeto_id, usuario_id)`; valores de status inválidos no payload. |
+| **E4-T5** | `DB::transaction` ≈ Operação atômica "tudo ou nada"; Domain Action ≈ Command/Use Case | Forçar exceção ao criar participante e garantir rollback total do projeto. |
+| **E4-T6** | Query params + `preserveState` ≈ `ActivatedRoute.queryParams` | Busca com `%` ou `_` (curingas SQL); página além do limite; XSS no modal. |
+| **E4-T7** | Visibilidade por perfil ≈ Route Guards com filtros de escopo no backend | Docente alterando ID na URL para inspecionar projeto alheio (IDOR); conflito admin vs docente. |
+| **E4-T8** | Validação cruzada (vagas vs ativos) ≈ Custom Validator de `FormGroup` | Redução de vagas concorrente com indicação (race condition); idempotência ao arquivar. |
+| **E5-T1** | Accordion/Tabs ≈ `ngSwitch`/`ng-template`; Props/Emits ≈ `@Input`/@Output | Listagens vazias; botões ocultos na UI mas com rotas acessíveis no backend. |
+| **E5-T2** | Service Laravel ≈ `@Injectable`; Service Container ≈ Angular Injector | Aceitar duas vezes; aceitar sem vaga livre; transição ilegal (Histórico → Ativo). |
+| **E5-T3** | Modal de busca com debounce ≈ Autocomplete com `debounceTime` (RxJS) | CPF não cadastrado; CPF com/sem máscara; CPF de professor; aluno já ativo ou sem vagas. |
+| **E5-T4** | Event/Listener Laravel ≈ Subject/EventEmitter | Falha ao instanciar avaliação pós-aceite; duplo clique rápido; usuário sem privilégio. |
+| **E5-T5** | Máquina de estados ≈ Store com transições finitas | Reversibilidade de Saindo vs irreversibilidade de Histórico; liberação atômica de vaga. |
 | **E6-T1** | Coluna JSON + Cast Eloquent ≈ Interface TS mapeada para objeto | JSON nulo/corrompido; alteração de template com relatórios existentes (versionamento). |
 | **E6-T2** | Esquema de formulário dinâmico ≈ Configuração declarativa de formulário | Tipo de campo desconhecido; campo obrigatório sem rótulo configurado. |
 | **E6-T3** | `<component :is>` ≈ `ngComponentOutlet`; `computed` ≈ `computed()` de Signals | Operação aritmética com valor nulo; mutação acidental da matriz JSON original. |
@@ -101,20 +101,21 @@ Consulte este mapa como disparador socrático para levantar pistas e casos adver
   *Commit:* `feat: Implementada ProjetoPolicy com restrição de perfil docente, trava de Lattes e testes de autorização`
 - [x] **E4-T3:** Formulário de Cadastro e Edição de Projetos (Dropdown encadeado Curso → Depto, validação de vagas).  
   *Commit:* `feat: Implementado formulario de cadastro e edicao de projetos com dropdown encadeado, validacao e testes`
-- [ ] **E4-T4:** Associação Automática do Docente Responsável como Participante (`DB::transaction` / Domain Action).  
-- [ ] **E4-T5:** Catálogo Público de Projetos na Home (Filtros por query params, `preserveState`, busca textual, paginação).  
-- [ ] **E4-T6:** Listagem Autenticada de Projetos (Visibilidade segmentada: Meus Projetos vs Todos os Projetos).  
-- [ ] **E4-T7:** Arquivamento e Regra de Capacidade de Vagas (Bloqueio de redução abaixo dos ativos).
+- [x] **E4-T4:** Modelagem da Pivô `projeto_usuario` e Enum `ParticipanteStatusEnum`.  
+  *Commit:* `feat: Implementada modelagem da tabela pivo projeto_usuario, enum ParticipanteStatusEnum, relacionamentos N:N e testes`
+- [ ] **E4-T5:** Associação Automática do Docente Responsável como Participante (`DB::transaction` / Domain Action).  
+- [ ] **E4-T6:** Catálogo Público de Projetos na Home (Filtros por query params, `preserveState`, busca textual, paginação).  
+- [ ] **E4-T7:** Listagem Autenticada de Projetos (Visibilidade segmentada: Meus Projetos vs Todos os Projetos).  
+- [ ] **E4-T8:** Arquivamento e Regra de Capacidade de Vagas (Bloqueio de redução abaixo dos ativos).
 
 ---
 
 ### 🤝 ÉPICO 5: Ciclo de Vida de Participantes e Indicações
-- [ ] **E5-T1:** Modelagem da Pivô `projeto_usuario` e Enum `ParticipanteStatusEnum`.  
-- [ ] **E5-T2:** Tela de Detalhes do Projeto com Acordeões/Tabs por Papel e Status de Participante.  
-- [ ] **E5-T3:** Domain Service de Transição de Estados (`ProjetoParticipanteService` com transações atômicas).  
-- [ ] **E5-T4:** Fluxo de Indicação de Discente com Modal de Busca e Validação de Vagas.  
-- [ ] **E5-T5:** Aceite e Rejeição de Indicações com Criação Automática do Registro de Avaliação.  
-- [ ] **E5-T6:** Fluxo de Desligamento de Discente (Saindo, Manter ou Mover para Histórico).
+- [ ] **E5-T1:** Tela de Detalhes do Projeto com Acordeões/Tabs por Papel e Status de Participante.  
+- [ ] **E5-T2:** Domain Service de Transição de Estados (`ProjetoParticipanteService` com transações atômicas).  
+- [ ] **E5-T3:** Fluxo de Indicação de Discente com Modal de Busca e Validação de Vagas.  
+- [ ] **E5-T4:** Aceite e Rejeição de Indicações com Criação Automática do Registro de Avaliação.  
+- [ ] **E5-T5:** Fluxo de Desligamento de Discente (Saindo, Manter ou Mover para Histórico).
 
 ---
 
