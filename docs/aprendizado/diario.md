@@ -101,3 +101,25 @@ Registro de evolução técnica, lacunas identificadas e fila de repetição esp
   - Índice de unicidade composto em tabelas pivô vs índices simples (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
 
 
+
+---
+
+## E4-T5: Associação Automática do Docente Responsável como Participante
+- **Data de Conclusão:** 07/10/2026
+- **Status:** Concluído com sucesso (7 testes passando, 40 asserções no `ProjetoControllerTest`; 18 testes passando no total de Projetos)
+- **Conceitos Praticados:**
+  - Padrão **Domain Action** (Action Pattern) para mutações isoladas de domínio (SRP - Single Responsibility Principle).
+  - Injeção de Dependências no Laravel via **Method Injection** em controllers resolvido pelo Service Container via Reflection API.
+  - Princípios ACID e **Transações de Banco de Dados** com `DB::transaction()` no Laravel: abertura com `BEGIN`, confirmação com `COMMIT` e reversão automática com `ROLLBACK` sob qualquer `Throwable`.
+  - Diferença entre passar o resultado de uma função avaliada imediatamente (`DB::transaction($this->...)`) versus passar uma Closure/Arrow Function para execução diferida controlada (`fn () => ...`).
+  - Retorno de métodos no Eloquent: compreensão de que `$relationship->attach(...)` retorna `void`/`null`, sendo necessário retornar explicitamente a instância criada (`$projeto`).
+  - Interceptação de queries SQL em testes com `DB::listen()` para simular falhas no banco e comprovar rollback atômico.
+  - Leitura e interpretação de **Stack Traces** no PHPUnit (da origem no fundo da pilha até a explosão no topo) e como filtros de queries (`insert` vs `select`) evitam efeitos colaterais em asserções de verificação (`assertDatabaseMissing`).
+- **Lacunas Superadas:**
+  - Por que `DB::transaction()` exige uma Closure/Callable em vez da chamada direta do método.
+  - A armadilha de retornar o resultado do `attach()` (que devolve `null` quebrando o tipo de retorno estrito `: Projeto`).
+  - Como simular acidentes de infraestrutura em testes com `DB::listen()` e por que filtrar apenas comandos `INSERT` para não quebrar os `SELECT` de asserções subsequentes.
+- **Fila de Revisão Espaçada:**
+  - Mecânica interna do `DB::transaction()` e rollback automático (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
+  - Injeção de Dependência no Laravel: Method Injection vs Constructor Injection (D+1: 08/10/2026, D+7: 14/10/2026).
+  - Interceptação de queries com `DB::listen` e leitura de Stack Traces no PHPUnit (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).

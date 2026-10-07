@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CriarProjetoAction;
 use App\Http\Requests\ProjetoRequest;
 use App\Models\Agencia;
 use App\Models\Curso;
@@ -22,8 +23,8 @@ class ProjetoController extends Controller
         Gate::authorize('create', Projeto::class);
 
         $cursos = Curso::orderBy('nome')->get(['id', 'nome']);
-        $departamentos = Departamento::orderBy('nome')->get([ 'id', 'nome', 'curso_id']);
-        $agencias = Agencia::orderBy('nome')->get([ 'id', 'nome']);
+        $departamentos = Departamento::orderBy('nome')->get(['id', 'nome', 'curso_id']);
+        $agencias = Agencia::orderBy('nome')->get(['id', 'nome']);
 
         return Inertia::render('projetos/Create', [
             'cursos' => $cursos,
@@ -33,13 +34,12 @@ class ProjetoController extends Controller
     }
 
     // Cria o projeto no BD
-    public function store(ProjetoRequest $request): RedirectResponse
+    public function store(ProjetoRequest $request, CriarProjetoAction $create): RedirectResponse
     {
         Gate::authorize('create', Projeto::class);
 
         $dados = $request->validated();
-        $dados['responsavel_id'] = $request->user()->id;
-        $projeto = Projeto::create($dados);
+        $create->execute($dados, $request->user());
 
         return redirect()->route('home')
             ->with('success', 'Projeto cadastrado com sucesso!');
@@ -50,10 +50,10 @@ class ProjetoController extends Controller
     {
         Gate::authorize('update', $projeto);
         $projeto->load('departamento.curso');
-        
+
         $cursos = Curso::orderBy('nome')->get(['id', 'nome']);
-        $departamentos = Departamento::orderBy('nome')->get([ 'id', 'nome', 'curso_id']);
-        $agencias = Agencia::orderBy('nome')->get([ 'id', 'nome']);
+        $departamentos = Departamento::orderBy('nome')->get(['id', 'nome', 'curso_id']);
+        $agencias = Agencia::orderBy('nome')->get(['id', 'nome']);
 
         return Inertia::render('projetos/Edit', [
             'projeto' => $projeto,

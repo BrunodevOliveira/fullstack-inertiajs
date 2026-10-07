@@ -103,7 +103,8 @@ Consulte este mapa como disparador socrático para levantar pistas e casos adver
   *Commit:* `feat: Implementado formulario de cadastro e edicao de projetos com dropdown encadeado, validacao e testes`
 - [x] **E4-T4:** Modelagem da Pivô `projeto_usuario` e Enum `ParticipanteStatusEnum`.  
   *Commit:* `feat: Implementada modelagem da tabela pivo projeto_usuario, enum ParticipanteStatusEnum, relacionamentos N:N e testes`
-- [ ] **E4-T5:** Associação Automática do Docente Responsável como Participante (`DB::transaction` / Domain Action).  
+- [x] **E4-T5:** Associação Automática do Docente Responsável como Participante (`DB::transaction` / Domain Action).  
+  *Commit:* `feat: Implementada CriarProjetoAction com transacao atomica para associacao automatica do docente responsavel e testes de rollback`  
 - [ ] **E4-T6:** Catálogo Público de Projetos na Home (Filtros por query params, `preserveState`, busca textual, paginação).  
 - [ ] **E4-T7:** Listagem Autenticada de Projetos (Visibilidade segmentada: Meus Projetos vs Todos os Projetos).  
 - [ ] **E4-T8:** Arquivamento e Regra de Capacidade de Vagas (Bloqueio de redução abaixo dos ativos).
