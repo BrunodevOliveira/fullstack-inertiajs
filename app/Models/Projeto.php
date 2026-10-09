@@ -85,4 +85,18 @@ class Projeto extends Model
     {
         $query->where('arquivado', true);
     }
+
+    public function scopeBuscar(Builder $query, ?string $termo): void
+    {
+        if (blank($termo)) {
+            return;
+        }
+
+        $query->where(function (Builder $subQuery) use ($termo) {
+            $subQuery->where('titulo', 'like', "%{$termo}%")
+                ->orWhere('assunto', 'like', "%{$termo}%")
+                ->orWhere('descricao', 'like', "%{$termo}%");
+        });
+
+    }
 }

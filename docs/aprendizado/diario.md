@@ -123,3 +123,38 @@ Registro de evolução técnica, lacunas identificadas e fila de repetição esp
   - Mecânica interna do `DB::transaction()` e rollback automático (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
   - Injeção de Dependência no Laravel: Method Injection vs Constructor Injection (D+1: 08/10/2026, D+7: 14/10/2026).
   - Interceptação de queries com `DB::listen` e leitura de Stack Traces no PHPUnit (D+1: 08/10/2026, D+7: 14/10/2026, D+21: 28/10/2026).
+
+---
+
+## E4-T6: Catálogo Público de Projetos na Home
+- **Data de Conclusão:** 08/10/2026
+- **Status:** Concluído com sucesso (3 testes passando, 38 asserções no `HomeControllerTest`; 21 testes passando no total de Projetos)
+- **Conceitos Praticados & Fundamentações:**
+  - **CQS (Command-Query Separation) no Laravel:**
+    - *Commands (Mutações/Escrita):* Devem morar em **Actions** (ex: `CriarProjetoAction`). Possuem efeitos colaterais, transações (`DB::transaction`) e disparam eventos. Evita o anti-padrão de *Fat Models*.
+    - *Queries (Consultas/Leitura):* Devem morar em **Local Scopes / Custom Query Builders** no Model (ex: `scopeAtivos`, `scopeBuscar`). Traduzem o vocabulário de negócio para SQL sem alterar estado.
+  - **Active Record vs Model Anêmico (Ponte Angular):**
+    - No Angular/TypeScript, models são interfaces ou DTOs sem lógica interna (anêmicos).
+    - No Eloquent (Active Record), o Model detém tanto os dados e relacionamentos quanto as regras de consulta e o comportamento da entidade.
+  - **Mecânica do Builder e Método Mágico `__call()`:**
+    - Ao chamar `Projeto::ativos()->buscar(...)`, o Eloquent instancia `Illuminate\Database\Eloquent\Builder`.
+    - Chamadas a escopos são interceptadas via `__call()`, que executa o método do Model passando o `$builder` por referência.
+    - Mesmo que o escopo tenha retorno `void`, o Builder do Laravel sempre retorna a si mesmo (`$this`), viabilizando o encadeamento fluente até a execução de um método terminal (`paginate()`, `get()`, `first()`).
+  - **Eager Loading vs Lazy Loading (Solução do N+1):**
+    - *Lazy Loading (padrão):* Dispara 1 query para o pai e +1 query para cada filho acessado no loop/card ($1 + N$ queries), gerando gargalo severo de banco.
+    - *Eager Loading (`with(['responsavel', 'departamento'])`):* Realiza consultas prévias agrupadas com `WHERE IN (...)` e hidrata as relações em memória, fixando a execução em 3 queries independentemente do volume de registros na página.
+  - **Precedência de Operadores SQL (`AND` vs `OR`) no Eloquent:**
+    - O operador `AND` possui precedência sobre `OR`. Para evitar que condições alternativas quebrem filtros anteriores (como `scopeAtivos`), é obrigatório agrupar os `OR` dentro de uma closure `$query->where(function ($sub) { ... })`.
+  - **Reatividade com Inertia no Frontend:**
+    - Uso de `router.get('/', params, { preserveState: true, replace: true })` para filtrar a página mantendo foco do input e sem poluir o histórico do navegador.
+    - Diferença de indexação: PrimeVue `Paginator` emite evento 0-indexed (`event.page + 1`), enquanto o Laravel Paginator é 1-indexed.
+- **Lacunas Superadas:**
+  - Compreensão de por que métodos de scope com retorno `void` permitem encadear métodos fluentes via `__call()`.
+  - Diferença vital entre Eager Loading (`with`) e Lazy Loading.
+  - Como a precedência de operadores SQL exige envelopamento de `orWhere` em closures para não quebrar o `scopeAtivos`.
+  - Como passar query parameters em testes de Feature no Laravel via helper `route('home', ['busca' => '...'])`.
+- **Fila de Revisão Espaçada:**
+  - CQS e Scopes vs Actions (D+1: 09/10/2026, D+7: 15/10/2026, D+21: 29/10/2026).
+  - Eager Loading com `with()` e prevenção de N+1 (D+1: 09/10/2026, D+7: 15/10/2026, D+21: 29/10/2026).
+  - `preserveState` e `replace` no Inertia vs SPA tradicional (D+1: 09/10/2026, D+7: 15/10/2026).
+  - Precedência de operadores SQL e agrupamento de `where` com closure (D+1: 09/10/2026, D+7: 15/10/2026).
